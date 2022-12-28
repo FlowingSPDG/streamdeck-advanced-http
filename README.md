@@ -1,2 +1,2 @@
-# streamdeck-plugintemplate-go
- Elgato StreamDeck Plugin template for Go backend
+# Elgato StreamDeck Advanced HTTP Client
+ Elgato StreamDeck Advanced HTTP Client Plugin 
