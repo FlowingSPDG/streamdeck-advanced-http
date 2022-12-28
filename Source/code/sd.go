@@ -1,4 +1,4 @@
-package sdnewtek
+package sdhttp
 
 import (
 	"context"
