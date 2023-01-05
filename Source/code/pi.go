@@ -13,6 +13,9 @@ type PI struct {
 	BasicAuthID       string `json:"basic_auth_id"`
 	BasicAuthPassword string `json:"basic_auth_password"`
 	AuthHeader        string `json:"auth_header"`
+
+	ShowOK    bool `json:"show_ok"`
+	ShowAlert bool `json:"show_alert"`
 }
 
 // IsDefault Check if its default
@@ -28,4 +31,6 @@ func (p *PI) Initialize() {
 	p.BasicAuthID = ""
 	p.BasicAuthPassword = ""
 	p.AuthHeader = ""
+	p.ShowOK = true
+	p.ShowAlert = true
 }

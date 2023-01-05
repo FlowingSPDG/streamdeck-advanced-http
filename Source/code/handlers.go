@@ -48,7 +48,9 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	if err != nil {
 		msg := fmt.Sprintf("Failed to generate request: %s", err)
 		client.LogMessage(ctx, msg)
-		client.ShowAlert(ctx)
+		if payload.Settings.ShowAlert {
+			client.ShowAlert(ctx)
+		}
 		return err
 	}
 	// 認証情報をセット
@@ -61,7 +63,9 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	if err != nil {
 		msg := fmt.Sprintf("Failed to perform request: %s", err)
 		client.LogMessage(ctx, msg)
-		client.ShowAlert(ctx)
+		if payload.Settings.ShowAlert {
+			client.ShowAlert(ctx)
+		}
 		return err
 	}
 	defer resp.Body.Close()
@@ -72,5 +76,8 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
 	client.LogMessage(ctx, msg)
 
-	return client.ShowOk(ctx)
+	if payload.Settings.ShowAlert {
+		client.ShowOk(ctx)
+	}
+	return nil
 }
