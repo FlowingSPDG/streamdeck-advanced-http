@@ -76,7 +76,7 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
 	client.LogMessage(ctx, msg)
 
-	if payload.Settings.ShowAlert {
+	if payload.Settings.ShowOK {
 		client.ShowOk(ctx)
 	}
 	return nil
