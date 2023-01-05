@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 
 	"github.com/FlowingSPDG/streamdeck"
 )
@@ -43,7 +42,6 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	}
 
 	// Perform HTTP Request
-	hc := &http.Client{Timeout: time.Second}
 	// リクエスト定義
 	buf := bytes.NewBufferString(payload.Settings.Body)
 	req, err := http.NewRequest(payload.Settings.Method, payload.Settings.URL, buf)
@@ -59,7 +57,7 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	}
 
 	// リクエスト実行
-	resp, err := hc.Do(req)
+	resp, err := s.ht.Do(req)
 	if err != nil {
 		msg := fmt.Sprintf("Failed to perform request: %s", err)
 		client.LogMessage(ctx, msg)
