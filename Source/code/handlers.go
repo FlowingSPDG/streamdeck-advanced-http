@@ -41,21 +41,35 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		return err
 	}
 
+	if err := s.do(ctx, client, payload.Settings); err != nil {
+		return err
+	}
+
+	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
+	client.LogMessage(ctx, msg)
+
+	if payload.Settings.ShowOK {
+		client.ShowOk(ctx)
+	}
+	return nil
+}
+
+func (s *SDHTTP) do(ctx context.Context, client *streamdeck.Client, setetings PI) error {
 	// Perform HTTP Request
 	// リクエスト定義
-	buf := bytes.NewBufferString(payload.Settings.Body)
-	req, err := http.NewRequest(payload.Settings.Method, payload.Settings.URL, buf)
+	buf := bytes.NewBufferString(setetings.Body)
+	req, err := http.NewRequest(setetings.Method, setetings.URL, buf)
 	if err != nil {
 		msg := fmt.Sprintf("Failed to generate request: %s", err)
 		client.LogMessage(ctx, msg)
-		if payload.Settings.ShowAlert {
+		if setetings.ShowAlert {
 			client.ShowAlert(ctx)
 		}
 		return err
 	}
 	// 認証情報をセット
-	if payload.Settings.BasicAuthID != "" && payload.Settings.BasicAuthPassword != "" {
-		req.SetBasicAuth(payload.Settings.BasicAuthID, payload.Settings.BasicAuthPassword)
+	if setetings.BasicAuthID != "" && setetings.BasicAuthPassword != "" {
+		req.SetBasicAuth(setetings.BasicAuthID, setetings.BasicAuthPassword)
 	}
 
 	// リクエスト実行
@@ -63,7 +77,7 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	if err != nil {
 		msg := fmt.Sprintf("Failed to perform request: %s", err)
 		client.LogMessage(ctx, msg)
-		if payload.Settings.ShowAlert {
+		if setetings.ShowAlert {
 			client.ShowAlert(ctx)
 		}
 		return err
@@ -71,13 +85,8 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	defer resp.Body.Close()
 
 	// discard buffer
-	io.Copy(io.Discard, resp.Body)
-
-	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
-	client.LogMessage(ctx, msg)
-
-	if payload.Settings.ShowOK {
-		client.ShowOk(ctx)
+	if _, err := io.Copy(io.Discard, resp.Body); err != nil {
+		return err
 	}
 	return nil
 }
