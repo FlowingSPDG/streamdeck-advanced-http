@@ -14,6 +14,21 @@
       "Tooltip": "Tooltip",
       "UUID": "dev.flowingspdg.advancedhttp.perform",
       "Icon": "images/icon" 
+    },
+    {
+      "Name": "HTTP REQUEST(DIAL)",
+      "States": [
+        {
+          "Image": "images/icon",
+          "TitleAlignment": "middle",
+          "FontSize": "24"
+        }
+      ],
+      "PropertyInspectorPath": "inspector/pi_dial.html", 
+      "SupportedInMultiActions": true,
+      "Tooltip": "Tooltip",
+      "UUID": "dev.flowingspdg.advancedhttp.dial",
+      "Icon": "images/icon" 
     }
   ],
   "SDKVersion": 2,
@@ -24,7 +39,7 @@
   "Name": "Advanced HTTP Client [FlowingSPDG]", 
   "Icon": "images/icon", 
   "URL": "https://github.com/streamdeck-advanced-http", 
-  "Version": "0.1.0",
+  "Version": "0.2.0",
   "OS": [
     {
       "Platform": "mac", 
@@ -36,7 +51,7 @@
     }
   ],
   "Software": {
-    "MinimumVersion" : "4.1"
+    "MinimumVersion" : "6.4"
   },
   "Category": "Advanced HTTP Client [FlowingSPDG]",
   "CategoryIcon": "images/icon"

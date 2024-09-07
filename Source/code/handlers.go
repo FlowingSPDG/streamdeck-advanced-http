@@ -13,7 +13,7 @@ import (
 
 // WillAppearHandler WillAppear handler
 func (s *SDHTTP) WillAppearHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
-	payload := streamdeck.WillAppearPayload[PI]{}
+	payload := streamdeck.WillAppearPayload[KeyDownPI]{}
 	if err := json.Unmarshal(event.Payload, &payload); err != nil {
 		msg := fmt.Sprintf("Failed to unmarshal WillAppear event payload: %s", err)
 		client.LogMessage(ctx, msg)
@@ -31,9 +31,9 @@ func (s *SDHTTP) WillAppearHandler(ctx context.Context, client *streamdeck.Clien
 	return nil
 }
 
-// KeyDownHandler Perform HTTP Request
+// KeyDownHandler Handles "KeyDown" action
 func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
-	payload := streamdeck.KeyDownPayload[PI]{}
+	payload := streamdeck.KeyDownPayload[KeyDownPI]{}
 	if err := json.Unmarshal(event.Payload, &payload); err != nil {
 		msg := fmt.Sprintf("Failed to unmarshal KeyDown event payload: %s", err)
 		client.LogMessage(ctx, msg)
@@ -41,7 +41,16 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		return err
 	}
 
-	if err := s.do(ctx, client, payload.Settings); err != nil {
+	r := request{
+		body:              payload.Settings.Body,
+		method:            payload.Settings.Method,
+		url:               payload.Settings.URL,
+		showAlert:         payload.Settings.ShowAlert,
+		basicAuthID:       payload.Settings.BasicAuthID,
+		basicAuthPassword: payload.Settings.BasicAuthPassword,
+	}
+
+	if err := s.do(ctx, client, r); err != nil {
 		return err
 	}
 
@@ -54,22 +63,104 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 	return nil
 }
 
-func (s *SDHTTP) do(ctx context.Context, client *streamdeck.Client, setetings PI) error {
+// DialRotateHandler
+func (s *SDHTTP) DialRotateHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	payload := streamdeck.DialRotatePayload[DialPI]{}
+	if err := json.Unmarshal(event.Payload, &payload); err != nil {
+		msg := fmt.Sprintf("Failed to unmarshal KeyDown event payload: %s", err)
+		client.LogMessage(ctx, msg)
+		client.ShowAlert(ctx)
+		return err
+	}
+
+	url := ""
+	if payload.Ticks > 0 {
+		url = payload.Settings.URLRight
+	} else {
+		url = payload.Settings.URLLeft
+	}
+
+	r := request{
+		body:              payload.Settings.Body,
+		method:            payload.Settings.Method,
+		url:               url,
+		showAlert:         payload.Settings.ShowAlert,
+		basicAuthID:       payload.Settings.BasicAuthID,
+		basicAuthPassword: payload.Settings.BasicAuthPassword,
+	}
+
+	if err := s.do(ctx, client, r); err != nil {
+		return err
+	}
+
+	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
+	client.LogMessage(ctx, msg)
+
+	if payload.Settings.ShowOK {
+		client.ShowOk(ctx)
+	}
+	return nil
+}
+
+// DialDownHandler
+func (s *SDHTTP) DialDownHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	payload := streamdeck.DialDownPayload[DialPI]{}
+	if err := json.Unmarshal(event.Payload, &payload); err != nil {
+		msg := fmt.Sprintf("Failed to unmarshal KeyDown event payload: %s", err)
+		client.LogMessage(ctx, msg)
+		client.ShowAlert(ctx)
+		return err
+	}
+
+	r := request{
+		body:              payload.Settings.Body,
+		method:            payload.Settings.Method,
+		url:               payload.Settings.URLPush,
+		showAlert:         payload.Settings.ShowAlert,
+		basicAuthID:       payload.Settings.BasicAuthID,
+		basicAuthPassword: payload.Settings.BasicAuthPassword,
+	}
+
+	if err := s.do(ctx, client, r); err != nil {
+		return err
+	}
+
+	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
+	client.LogMessage(ctx, msg)
+
+	if payload.Settings.ShowOK {
+		client.ShowOk(ctx)
+	}
+	return nil
+}
+
+type request struct {
+	body   string
+	method string
+	url    string
+
+	showAlert         bool
+	basicAuthID       string
+	basicAuthPassword string
+}
+
+// do perform HTTP request
+func (s *SDHTTP) do(ctx context.Context, client *streamdeck.Client, r request) error {
 	// Perform HTTP Request
 	// リクエスト定義
-	buf := bytes.NewBufferString(setetings.Body)
-	req, err := http.NewRequest(setetings.Method, setetings.URL, buf)
+	buf := bytes.NewBufferString(r.body)
+	req, err := http.NewRequest(r.method, r.url, buf)
 	if err != nil {
 		msg := fmt.Sprintf("Failed to generate request: %s", err)
 		client.LogMessage(ctx, msg)
-		if setetings.ShowAlert {
+		if r.showAlert {
 			client.ShowAlert(ctx)
 		}
 		return err
 	}
 	// 認証情報をセット
-	if setetings.BasicAuthID != "" && setetings.BasicAuthPassword != "" {
-		req.SetBasicAuth(setetings.BasicAuthID, setetings.BasicAuthPassword)
+	if r.basicAuthID != "" && r.basicAuthPassword != "" {
+		req.SetBasicAuth(r.basicAuthID, r.basicAuthPassword)
 	}
 
 	// リクエスト実行
@@ -77,7 +168,7 @@ func (s *SDHTTP) do(ctx context.Context, client *streamdeck.Client, setetings PI
 	if err != nil {
 		msg := fmt.Sprintf("Failed to perform request: %s", err)
 		client.LogMessage(ctx, msg)
-		if setetings.ShowAlert {
+		if r.showAlert {
 			client.ShowAlert(ctx)
 		}
 		return err

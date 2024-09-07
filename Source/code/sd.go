@@ -9,7 +9,8 @@ import (
 
 const (
 	// Action Perform action
-	Action = "dev.flowingspdg.advancedhttp.perform"
+	ActionPerform = "dev.flowingspdg.advancedhttp.perform"
+	ActionDial    = "dev.flowingspdg.advancedhttp.dial"
 )
 
 // SDHTTP StreamDeck client
@@ -25,9 +26,13 @@ func NewSDHTTP(ctx context.Context, params streamdeck.RegistrationParams) *SDHTT
 		ht: http.DefaultClient,
 	}
 
-	action := ret.sd.Action(Action)
-	action.RegisterHandler(streamdeck.WillAppear, ret.WillAppearHandler)
-	action.RegisterHandler(streamdeck.KeyDown, ret.KeyDownHandler)
+	buttonAction := ret.sd.Action(ActionPerform)
+	buttonAction.RegisterHandler(streamdeck.WillAppear, ret.WillAppearHandler)
+	buttonAction.RegisterHandler(streamdeck.KeyDown, ret.KeyDownHandler)
+
+	dialAction := ret.sd.Action(ActionDial)
+	dialAction.RegisterHandler(streamdeck.DialRotate, ret.DialRotateHandler)
+	dialAction.RegisterHandler(streamdeck.DialDown, ret.DialDownHandler)
 
 	return ret
 }
