@@ -16,6 +16,7 @@
       "Icon": "images/icon" 
     },
     {
+      "Icon": "images/icon",
       "Name": "HTTP REQUEST(DIAL)",
       "States": [
         {
@@ -24,11 +25,22 @@
           "FontSize": "24"
         }
       ],
+      "Controllers": ["Encoder"],
+      "DisableAutomaticStates": false,
+      "Encoder": {
+        "background": "backgroundImage",
+        "Icon": "StackAndLayoutImage",
+        "layout": "layoutName",
+        "StackColor": "#AABBCC",
+        "TriggerDescription": {
+          "Rotate": "Perform HTTP Request with specific rotate direction.",
+          "Push": "Perform HTTP Request with push button"
+        }
+      },
       "PropertyInspectorPath": "inspector/pi_dial.html", 
-      "SupportedInMultiActions": true,
+      "SupportedInMultiActions": false,
       "Tooltip": "Tooltip",
-      "UUID": "dev.flowingspdg.advancedhttp.dial",
-      "Icon": "images/icon" 
+      "UUID": "dev.flowingspdg.advancedhttp.dial"
     }
   ],
   "SDKVersion": 2,
