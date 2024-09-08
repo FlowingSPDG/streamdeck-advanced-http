@@ -11,9 +11,13 @@ import (
 	"github.com/FlowingSPDG/streamdeck"
 )
 
-// WillAppearHandler WillAppear handler
-func (s *SDHTTP) WillAppearHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
-	payload := streamdeck.WillAppearPayload[KeyDownPI]{}
+// ButtonWillAppearHandler WillAppear handler
+func (s *SDHTTP) ButtonWillAppearHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	return willAppearHandler[*KeyDownPI](ctx, client, event)
+}
+
+func willAppearHandler[T propertyInspector](ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	payload := streamdeck.WillAppearPayload[T]{}
 	if err := json.Unmarshal(event.Payload, &payload); err != nil {
 		msg := fmt.Sprintf("Failed to unmarshal WillAppear event payload: %s", err)
 		client.LogMessage(ctx, msg)
@@ -61,6 +65,11 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		client.ShowOk(ctx)
 	}
 	return nil
+}
+
+// DialWillAppearHandler WillAppear handler
+func (s *SDHTTP) DialWillAppearHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	return willAppearHandler[*DialPI](ctx, client, event)
 }
 
 // DialRotateHandler

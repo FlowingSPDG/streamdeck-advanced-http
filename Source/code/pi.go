@@ -5,6 +5,11 @@ import (
 	"reflect"
 )
 
+type propertyInspector interface {
+	IsDefault() bool
+	Initialize()
+}
+
 type pi struct {
 	Method            string `json:"method"`
 	Body              string `json:"body"`
