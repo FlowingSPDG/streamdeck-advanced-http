@@ -6,6 +6,9 @@ import (
 	"fmt"
 
 	"github.com/FlowingSPDG/streamdeck"
+
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 )
 
 // DialWillAppearHandler WillAppear handler
@@ -28,10 +31,13 @@ func (s *SDHTTP) DialRotateHandler(ctx context.Context, client *streamdeck.Clien
 		return err
 	}
 
+	times := 0
 	url := ""
 	if payload.Ticks > 0 {
+		times = payload.Ticks
 		url = payload.Settings.URLRight
 	} else {
+		times = 0 - payload.Ticks
 		url = payload.Settings.URLLeft
 	}
 
@@ -44,8 +50,21 @@ func (s *SDHTTP) DialRotateHandler(ctx context.Context, client *streamdeck.Clien
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
 	}
 
-	if err := s.do(ctx, client, r); err != nil {
-		return err
+	eg, cctx := errgroup.WithContext(ctx)
+	for range times {
+		eg.Go(func() error {
+			if err := s.do(cctx, client, r); err != nil {
+				return xerrors.Errorf("failed to execute request : %w", err)
+			}
+			return nil
+		})
+	}
+
+	if err := eg.Wait(); err != nil {
+		msg := fmt.Sprintf("Failed to process errgroup: %s", err)
+		client.LogMessage(ctx, msg)
+		client.ShowAlert(ctx)
+		return xerrors.Errorf("failed to process errgroup : %w", err)
 	}
 
 	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)

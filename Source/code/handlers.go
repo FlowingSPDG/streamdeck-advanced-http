@@ -20,11 +20,6 @@ func willAppearHandler[T propertyInspector](ctx context.Context, client *streamd
 		return err
 	}
 
-	if payload.Settings.IsDefault() {
-		payload.Settings.Initialize()
-		client.SetSettings(ctx, payload.Settings)
-	}
-
 	msg := fmt.Sprintf("Context %s WillAppear with settings :%v", event.Context, payload.Settings)
 	client.LogMessage(ctx, msg)
 	return nil
@@ -36,11 +31,6 @@ func WillDisappearHandler[T propertyInspector](ctx context.Context, client *stre
 		msg := fmt.Sprintf("Failed to unmarshal WillAppear event payload: %s", err)
 		client.LogMessage(ctx, msg)
 		client.ShowAlert(ctx)
-		return err
-	}
-
-	payload.Settings.Initialize()
-	if err := client.SetSettings(ctx, payload.Settings); err != nil {
 		return err
 	}
 
