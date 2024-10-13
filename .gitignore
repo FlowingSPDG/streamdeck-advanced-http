@@ -22,3 +22,5 @@ go.work
 
 dev.flowingspdg.advancedhttp.sdPlugin
 *.streamDeckPlugin
+
+.vscode

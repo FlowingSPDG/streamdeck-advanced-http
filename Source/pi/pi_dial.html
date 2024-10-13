@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Advanced HTTP Client(DIAL)</title>
+  <link rel="stylesheet" href="sdpi.css">
+</head>
+
+<script src="sdtools.common.js"></script>
+
+<body>
+  <div class="sdpi-wrapper">
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">METHOD</div>
+      <div class="sdpi-item-child">
+        <select class="sdProperty" id="method" oninput="setSettings()">
+          <option value="GET">GET</option>
+          <option value="HEAD">HEAD</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+          <option value="PATCH">PATCH</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">URL(left)</div>
+      <div class="sdpi-item-child">
+        <input id="url_left" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">URL(right)</div>
+      <div class="sdpi-item-child">
+        <input id="url_right" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">URL(push)</div>
+      <div class="sdpi-item-child">
+        <input id="url_push" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">BODY</div>
+      <div class="sdpi-item-child">
+        <input id="body" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Baisc AUTH ID</div>
+      <div class="sdpi-item-child">
+        <input id="basic_auth_id" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Baisc AUTH Password</div>
+      <div class="sdpi-item-child">
+        <input id="basic_auth_password" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Authorization Header</div>
+      <div class="sdpi-item-child">
+        <input id="auth_header" class="sdProperty" onInput="setSettings()"></input>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Enable "OK" Notification</div>
+      <div class="sdpi-item-child">
+        <input id="show_ok" type="checkbox" checked class="sdProperty sdCheckbox" oninput="setSettings()"></input>
+        <label for="show_ok" class="sdpi-item-label"><span></span></label>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Enable "WARNING" Notification</div>
+      <div class="sdpi-item-child">
+        <input id="show_alert" type="checkbox" checked class="sdProperty sdCheckbox" oninput="setSettings()"></input>
+        <label for="show_alert" class="sdpi-item-label"><span></span></label>
+      </div>
+    </div>
+  
+</div>
+<script>
+</script>
+</body>
+</html>

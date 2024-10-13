@@ -12,8 +12,9 @@ import (
 )
 
 func main() {
-	ctx := context.Background()
 	log.Println("Starting...")
+
+	ctx := context.Background()
 	if err := run(ctx); err != nil {
 		log.Fatalf("%v\n", err)
 	}

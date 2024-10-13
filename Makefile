@@ -30,7 +30,7 @@ endif
 
 # Replacing Distribute command for Windows PowerShell.
 DISTRIBUTION_TOOL = ./DistributionTool.exe
-ifeq  ($(shell uname),Darwin)
+ifeq ($(shell uname),Darwin)
 	DISTRIBUTION_TOOL = ./DistributionTool
 endif
 
