@@ -49,6 +49,7 @@ type DialPI struct {
 	URLLeft  string `json:"url_left"`
 	URLRight string `json:"url_right"`
 	URLPush  string `json:"url_push"`
+	URLTouch string `json:"url_touch"`
 }
 
 // IsDefault Check if its default
@@ -62,6 +63,7 @@ func (p *DialPI) Initialize() {
 	p.URLLeft = "https://www.elgato.com"
 	p.URLRight = "https://www.elgato.com"
 	p.URLPush = "https://www.elgato.com"
+	p.URLTouch = "https://www.elgato.com"
 	p.Body = ""
 	p.BasicAuthID = ""
 	p.BasicAuthPassword = ""

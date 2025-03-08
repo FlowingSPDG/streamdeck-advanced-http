@@ -51,6 +51,10 @@ type request struct {
 
 // do perform HTTP request
 func (s *SDHTTP) do(ctx context.Context, client *streamdeck.Client, r request) error {
+	if r.url == "" || r.method == "" {
+		return nil
+	}
+
 	// Perform HTTP Request
 	// リクエスト定義
 	buf := bytes.NewBufferString(r.body)
