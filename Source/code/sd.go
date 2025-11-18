@@ -30,6 +30,7 @@ func NewSDHTTP(ctx context.Context, params streamdeck.RegistrationParams) *SDHTT
 	buttonAction.RegisterHandler(streamdeck.WillAppear, ret.ButtonWillAppearHandler)
 	buttonAction.RegisterHandler(streamdeck.WillDisappear, ret.ButtonWillDisapperHandler)
 	buttonAction.RegisterHandler(streamdeck.KeyDown, ret.KeyDownHandler)
+	buttonAction.RegisterHandler(streamdeck.KeyUp, ret.KeyUpHandler)
 
 	dialAction := ret.sd.Action(ActionDial)
 	dialAction.RegisterHandler(streamdeck.WillAppear, ret.DialWillAppearHandler)
