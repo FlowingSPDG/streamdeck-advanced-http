@@ -24,8 +24,6 @@ type pi struct {
 // KeyDownPI PropertyInspector for KeyDown
 type KeyDownPI struct {
 	pi
-	URL        string `json:"url"`         // Deprecated: Use URLPress and URLRelease instead
-	ActionMode string `json:"action_mode"` // Deprecated: Use URLPress and URLRelease instead
 	URLPress   string `json:"url_press"`   // URL to call on button press
 	URLRelease string `json:"url_release"` // URL to call on button release
 }
@@ -38,7 +36,6 @@ func (p KeyDownPI) IsDefault() bool {
 // Initialize PI
 func (p *KeyDownPI) Initialize() {
 	p.Method = http.MethodGet
-	p.URL = "https://www.elgato.com"
 	p.URLPress = ""
 	p.URLRelease = ""
 	p.Body = ""
@@ -47,7 +44,6 @@ func (p *KeyDownPI) Initialize() {
 	p.AuthHeader = ""
 	p.ShowOK = true
 	p.ShowAlert = true
-	p.ActionMode = "push"
 }
 
 type DialPI struct {

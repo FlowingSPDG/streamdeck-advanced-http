@@ -28,29 +28,15 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		return err
 	}
 
-	// Determine which URL to use: prefer URLPress, fall back to URL for backward compatibility
-	url := payload.Settings.URLPress
-	if url == "" {
-		// Backward compatibility: check ActionMode
-		actionMode := payload.Settings.ActionMode
-		if actionMode == "" {
-			actionMode = "push" // デフォルト値（後方互換性のため）
-		}
-		if actionMode != "push" {
-			return nil
-		}
-		url = payload.Settings.URL
-	}
-
-	// If still no URL, don't send request
-	if url == "" {
+	// If no URL is set, don't send request
+	if payload.Settings.URLPress == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               url,
+		url:               payload.Settings.URLPress,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
@@ -79,29 +65,15 @@ func (s *SDHTTP) KeyUpHandler(ctx context.Context, client *streamdeck.Client, ev
 		return err
 	}
 
-	// Determine which URL to use: prefer URLRelease, fall back to URL for backward compatibility
-	url := payload.Settings.URLRelease
-	if url == "" {
-		// Backward compatibility: check ActionMode
-		actionMode := payload.Settings.ActionMode
-		if actionMode == "" {
-			actionMode = "push" // デフォルト値（後方互換性のため）
-		}
-		if actionMode != "release" {
-			return nil
-		}
-		url = payload.Settings.URL
-	}
-
-	// If still no URL, don't send request
-	if url == "" {
+	// If no URL is set, don't send request
+	if payload.Settings.URLRelease == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               url,
+		url:               payload.Settings.URLRelease,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
