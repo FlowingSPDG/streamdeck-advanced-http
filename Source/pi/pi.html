@@ -33,6 +33,16 @@
     </div>
 
     <div class="sdpi-item">
+      <div class="sdpi-item-label">Action Mode</div>
+      <div class="sdpi-item-child">
+        <select class="sdProperty" id="action_mode" oninput="setSettings()">
+          <option value="push">Push to perform</option>
+          <option value="release">Release to perform</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
       <div class="sdpi-item-label">BODY</div>
       <div class="sdpi-item-child">
         <input id="body" class="sdProperty" onInput="setSettings()"></input>
@@ -73,16 +83,6 @@
       <div class="sdpi-item-child">
         <input id="show_alert" type="checkbox" checked class="sdProperty sdCheckbox" oninput="setSettings()"></input>
         <label for="show_alert" class="sdpi-item-label"><span></span></label>
-      </div>
-    </div>
-
-    <div class="sdpi-item">
-      <div class="sdpi-item-label">Action Mode</div>
-      <div class="sdpi-item-child">
-        <select class="sdProperty" id="action_mode" oninput="setSettings()">
-          <option value="push">Push to send request</option>
-          <option value="release">Release to send request</option>
-        </select>
       </div>
     </div>
   
