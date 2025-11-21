@@ -28,19 +28,29 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		return err
 	}
 
-	// ActionModeが"release"の場合は、KeyDownでは何もしない
-	actionMode := payload.Settings.ActionMode
-	if actionMode == "" {
-		actionMode = "push" // デフォルト値（後方互換性のため）
+	// Determine which URL to use: prefer URLPress, fall back to URL for backward compatibility
+	url := payload.Settings.URLPress
+	if url == "" {
+		// Backward compatibility: check ActionMode
+		actionMode := payload.Settings.ActionMode
+		if actionMode == "" {
+			actionMode = "push" // デフォルト値（後方互換性のため）
+		}
+		if actionMode != "push" {
+			return nil
+		}
+		url = payload.Settings.URL
 	}
-	if actionMode != "push" {
+
+	// If still no URL, don't send request
+	if url == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               payload.Settings.URL,
+		url:               url,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
@@ -69,19 +79,29 @@ func (s *SDHTTP) KeyUpHandler(ctx context.Context, client *streamdeck.Client, ev
 		return err
 	}
 
-	// ActionModeが"push"の場合は、KeyUpでは何もしない
-	actionMode := payload.Settings.ActionMode
-	if actionMode == "" {
-		actionMode = "push" // デフォルト値（後方互換性のため）
+	// Determine which URL to use: prefer URLRelease, fall back to URL for backward compatibility
+	url := payload.Settings.URLRelease
+	if url == "" {
+		// Backward compatibility: check ActionMode
+		actionMode := payload.Settings.ActionMode
+		if actionMode == "" {
+			actionMode = "push" // デフォルト値（後方互換性のため）
+		}
+		if actionMode != "release" {
+			return nil
+		}
+		url = payload.Settings.URL
 	}
-	if actionMode != "release" {
+
+	// If still no URL, don't send request
+	if url == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               payload.Settings.URL,
+		url:               url,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
