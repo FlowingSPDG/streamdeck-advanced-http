@@ -24,7 +24,8 @@ type pi struct {
 // KeyDownPI PropertyInspector for KeyDown
 type KeyDownPI struct {
 	pi
-	URL string `json:"url"`
+	URL        string `json:"url"`
+	ActionMode string `json:"action_mode"`
 }
 
 // IsDefault Check if its default
@@ -42,6 +43,7 @@ func (p *KeyDownPI) Initialize() {
 	p.AuthHeader = ""
 	p.ShowOK = true
 	p.ShowAlert = true
+	p.ActionMode = "push"
 }
 
 type DialPI struct {

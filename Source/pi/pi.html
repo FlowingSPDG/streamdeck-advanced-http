@@ -33,6 +33,16 @@
     </div>
 
     <div class="sdpi-item">
+      <div class="sdpi-item-label">Action Mode</div>
+      <div class="sdpi-item-child">
+        <select class="sdProperty" id="action_mode" oninput="setSettings()">
+          <option value="push">Push to perform</option>
+          <option value="release">Release to perform</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
       <div class="sdpi-item-label">BODY</div>
       <div class="sdpi-item-child">
         <input id="body" class="sdProperty" onInput="setSettings()"></input>
