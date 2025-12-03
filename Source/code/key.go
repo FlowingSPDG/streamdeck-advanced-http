@@ -28,19 +28,15 @@ func (s *SDHTTP) KeyDownHandler(ctx context.Context, client *streamdeck.Client, 
 		return err
 	}
 
-	// ActionModeが"release"の場合は、KeyDownでは何もしない
-	actionMode := payload.Settings.ActionMode
-	if actionMode == "" {
-		actionMode = "push" // デフォルト値（後方互換性のため）
-	}
-	if actionMode != "push" {
+	// If no URL is set, don't send request
+	if payload.Settings.URLPress == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               payload.Settings.URL,
+		url:               payload.Settings.URLPress,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,
@@ -69,19 +65,15 @@ func (s *SDHTTP) KeyUpHandler(ctx context.Context, client *streamdeck.Client, ev
 		return err
 	}
 
-	// ActionModeが"push"の場合は、KeyUpでは何もしない
-	actionMode := payload.Settings.ActionMode
-	if actionMode == "" {
-		actionMode = "push" // デフォルト値（後方互換性のため）
-	}
-	if actionMode != "release" {
+	// If no URL is set, don't send request
+	if payload.Settings.URLRelease == "" {
 		return nil
 	}
 
 	r := request{
 		body:              payload.Settings.Body,
 		method:            payload.Settings.Method,
-		url:               payload.Settings.URL,
+		url:               payload.Settings.URLRelease,
 		showAlert:         payload.Settings.ShowAlert,
 		basicAuthID:       payload.Settings.BasicAuthID,
 		basicAuthPassword: payload.Settings.BasicAuthPassword,

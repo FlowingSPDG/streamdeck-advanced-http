@@ -26,19 +26,16 @@
     </div>
 
     <div class="sdpi-item">
-      <div class="sdpi-item-label">URL</div>
+      <div class="sdpi-item-label">URL (Press)</div>
       <div class="sdpi-item-child">
-        <input id="url" class="sdProperty" onInput="setSettings()"></input>
+        <input id="url_press" class="sdProperty" onInput="setSettings()"></input>
       </div>
     </div>
 
     <div class="sdpi-item">
-      <div class="sdpi-item-label">Action Mode</div>
+      <div class="sdpi-item-label">URL (Release)</div>
       <div class="sdpi-item-child">
-        <select class="sdProperty" id="action_mode" oninput="setSettings()">
-          <option value="push">Push to perform</option>
-          <option value="release">Release to perform</option>
-        </select>
+        <input id="url_release" class="sdProperty" onInput="setSettings()"></input>
       </div>
     </div>
 
