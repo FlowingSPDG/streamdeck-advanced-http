@@ -37,6 +37,7 @@ func NewSDHTTP(ctx context.Context, params streamdeck.RegistrationParams) *SDHTT
 	dialAction.RegisterHandler(streamdeck.WillDisappear, ret.DialWillDisapperHandler)
 	dialAction.RegisterHandler(streamdeck.DialRotate, ret.DialRotateHandler)
 	dialAction.RegisterHandler(streamdeck.DialDown, ret.DialDownHandler)
+	dialAction.RegisterHandler(streamdeck.DialUp, ret.DialUpHandler)
 	dialAction.RegisterHandler(streamdeck.TouchTap, ret.TouchTapHandler)
 
 	return ret
