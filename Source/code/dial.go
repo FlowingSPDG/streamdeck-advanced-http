@@ -108,6 +108,43 @@ func (s *SDHTTP) DialDownHandler(ctx context.Context, client *streamdeck.Client,
 	return nil
 }
 
+// DialUpHandler Handles "DialUp" action
+func (s *SDHTTP) DialUpHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
+	payload := streamdeck.DialUpPayload[DialPI]{}
+	if err := json.Unmarshal(event.Payload, &payload); err != nil {
+		msg := fmt.Sprintf("Failed to unmarshal DialUp event payload: %s", err)
+		client.LogMessage(ctx, msg)
+		client.ShowAlert(ctx)
+		return err
+	}
+
+	// If no URL is set, don't send request
+	if payload.Settings.URLRelease == "" {
+		return nil
+	}
+
+	r := request{
+		body:              payload.Settings.Body,
+		method:            payload.Settings.Method,
+		url:               payload.Settings.URLRelease,
+		showAlert:         payload.Settings.ShowAlert,
+		basicAuthID:       payload.Settings.BasicAuthID,
+		basicAuthPassword: payload.Settings.BasicAuthPassword,
+	}
+
+	if err := s.do(ctx, client, r); err != nil {
+		return err
+	}
+
+	msg := fmt.Sprintf("Request succeeded :%v", payload.Settings)
+	client.LogMessage(ctx, msg)
+
+	if payload.Settings.ShowOK {
+		client.ShowOk(ctx)
+	}
+	return nil
+}
+
 func (s *SDHTTP) TouchTapHandler(ctx context.Context, client *streamdeck.Client, event streamdeck.Event) error {
 	payload := streamdeck.TouchTapPayload[DialPI]{}
 	if err := json.Unmarshal(event.Payload, &payload); err != nil {
