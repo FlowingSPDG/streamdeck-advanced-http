@@ -7,7 +7,7 @@
         {
           "Image": "images/icon",
           "TitleAlignment": "middle",
-          "FontSize": "24"
+          "FontSize": 24
         }
       ],
       "PropertyInspectorPath": "inspector/pi.html", 
@@ -23,21 +23,11 @@
         {
           "Image": "images/icon",
           "TitleAlignment": "middle",
-          "FontSize": "24"
+          "FontSize": 24
         }
       ],
       "Controllers": ["Encoder"],
       "DisableAutomaticStates": false,
-      "Encoder": {
-        "background": "backgroundImage",
-        "Icon": "StackAndLayoutImage",
-        "layout": "layoutName",
-        "StackColor": "#AABBCC",
-        "TriggerDescription": {
-          "Rotate": "Perform HTTP Request with specific rotate direction.",
-          "Push": "Perform HTTP Request with push button"
-        }
-      },
       "PropertyInspectorPath": "inspector/pi_dial.html", 
       "SupportedInMultiActions": false,
       "Tooltip": "Tooltip",
@@ -51,7 +41,7 @@
   "Description": "Advanced HTTP Client", 
   "Name": "Advanced HTTP Client [FlowingSPDG]", 
   "Icon": "images/icon", 
-  "URL": "https://github.com/streamdeck-advanced-http", 
+  "URL": "https://github.com/FlowingSPDG/streamdeck-advanced-http", 
   "Version": "1.0.0",
   "OS": [
     {
