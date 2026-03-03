@@ -1,4 +1,5 @@
 {
+  "UUID": "dev.flowingspdg.advancedhttp",
   "Actions": [
     {
       "Name": "HTTP REQUEST",
@@ -43,7 +44,7 @@
       "UUID": "dev.flowingspdg.advancedhttp.dial"
     }
   ],
-  "SDKVersion": 2,
+  "SDKVersion": 3,
   "Author": "Shugo Kawamura", 
   "CodePath": "http_client.exe", 
   "CodePathMac" :"http_client", 
@@ -51,7 +52,7 @@
   "Name": "Advanced HTTP Client [FlowingSPDG]", 
   "Icon": "images/icon", 
   "URL": "https://github.com/streamdeck-advanced-http", 
-  "Version": "0.3.1",
+  "Version": "1.0.0",
   "OS": [
     {
       "Platform": "mac", 
@@ -63,7 +64,7 @@
     }
   ],
   "Software": {
-    "MinimumVersion" : "6.4"
+    "MinimumVersion" : "6.9"
   },
   "Category": "Advanced HTTP Client [FlowingSPDG]",
   "CategoryIcon": "images/icon"
