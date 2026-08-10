@@ -28,13 +28,6 @@ ifeq ($(OS),Windows_NT)
 	CP = powershell -Command Copy-Item -Recurse -Force
 endif
 
-# Replacing Distribute command for Windows PowerShell.
-DISTRIBUTION_TOOL = ./DistributionTool.exe
-ifeq ($(shell uname),Darwin)
-	DISTRIBUTION_TOOL = ./DistributionTool
-endif
-
-
 .DEFAULT_GOAL := build
 
 test:
@@ -57,4 +50,5 @@ build: prepare
 distribute: build
 	@$(RM) ./$(RELEASEDIR)/*
 	@$(MKDIR) $(RELEASEDIR)
-	$(DISTRIBUTION_TOOL) -b -i $(APPNAME) -o $(RELEASEDIR)
+	streamdeck pack $(APPNAME)
+	$(CP) $(APPNAME:.sdPlugin=.streamDeckPlugin) $(RELEASEDIR)

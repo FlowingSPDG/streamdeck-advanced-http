@@ -1,0 +1,10 @@
+Source/
+*.go
+Makefile
+.git/
+.github/
+README*
+*.ps1
+*.bat
+*.sh
+

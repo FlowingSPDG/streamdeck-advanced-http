@@ -1,4 +1,5 @@
 {
+  "UUID": "dev.flowingspdg.advancedhttp",
   "Actions": [
     {
       "Name": "HTTP REQUEST",
@@ -6,7 +7,7 @@
         {
           "Image": "images/icon",
           "TitleAlignment": "middle",
-          "FontSize": "24"
+          "FontSize": 24
         }
       ],
       "PropertyInspectorPath": "inspector/pi.html", 
@@ -22,36 +23,26 @@
         {
           "Image": "images/icon",
           "TitleAlignment": "middle",
-          "FontSize": "24"
+          "FontSize": 24
         }
       ],
       "Controllers": ["Encoder"],
       "DisableAutomaticStates": false,
-      "Encoder": {
-        "background": "backgroundImage",
-        "Icon": "StackAndLayoutImage",
-        "layout": "layoutName",
-        "StackColor": "#AABBCC",
-        "TriggerDescription": {
-          "Rotate": "Perform HTTP Request with specific rotate direction.",
-          "Push": "Perform HTTP Request with push button"
-        }
-      },
       "PropertyInspectorPath": "inspector/pi_dial.html", 
       "SupportedInMultiActions": false,
       "Tooltip": "Tooltip",
       "UUID": "dev.flowingspdg.advancedhttp.dial"
     }
   ],
-  "SDKVersion": 2,
+  "SDKVersion": 3,
   "Author": "Shugo Kawamura", 
   "CodePath": "http_client.exe", 
   "CodePathMac" :"http_client", 
   "Description": "Advanced HTTP Client", 
   "Name": "Advanced HTTP Client [FlowingSPDG]", 
   "Icon": "images/icon", 
-  "URL": "https://github.com/streamdeck-advanced-http", 
-  "Version": "0.3.1",
+  "URL": "https://github.com/FlowingSPDG/streamdeck-advanced-http", 
+  "Version": "1.0.0",
   "OS": [
     {
       "Platform": "mac", 
@@ -63,7 +54,7 @@
     }
   ],
   "Software": {
-    "MinimumVersion" : "6.4"
+    "MinimumVersion" : "6.9"
   },
   "Category": "Advanced HTTP Client [FlowingSPDG]",
   "CategoryIcon": "images/icon"
