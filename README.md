@@ -35,10 +35,10 @@ Releases ページの `*.streamDeckPlugin`（例: `dev.flowingspdg.advancedhttp.
 
 | 項目 | 説明 |
 | --- | --- |
-| **METHOD** | HTTP メソッド（`GET` / `POST` / `PUT` / `DELETE` など） |
+| **METHOD** | HTTP メソッド（`GET` / `HEAD` / `QUERY` / `POST` / `PUT` / `DELETE` / `PATCH`） |
 | **URL (Press)** | ボタン押下時に送信する URL。空欄なら送信しない |
 | **URL (Release)** | ボタン解放時に送信する URL。空欄なら送信しない |
-| **BODY** | リクエスト本文（`POST` / `PUT` / `PATCH` などで使用） |
+| **BODY** | リクエスト本文（`QUERY` / `POST` / `PUT` / `PATCH` などで使用） |
 | **Basic AUTH ID** | Basic 認証のユーザー名 |
 | **Basic AUTH Password** | Basic 認証のパスワード |
 | **Authorization Header** | Authorization ヘッダーに設定する値 |
