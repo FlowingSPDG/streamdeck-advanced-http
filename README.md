@@ -1,7 +1,7 @@
 # Advanced HTTP Client（Stream Deckプラグイン）
 
 Stream Deckのボタン／ダイヤル操作から任意のHTTPリクエストを送信するプラグインです。  
-OBSや家電、自作APIなど、URLで制御できる対象をStream Deckから呼び出せます。
+インターネット上のHTTP APIやREST APIなどに対して指定のHTTPリクエストを送信可能です。
 
 ---
 
@@ -90,7 +90,7 @@ Press / Releaseは別URLを指定できます。片方のみ使う場合は、�
 - Issues: https://github.com/FlowingSPDG/streamdeck-advanced-http/issues
 - Repository: https://github.com/FlowingSPDG/streamdeck-advanced-http
 
-不具合報告時は、本体機種・OS・プラグインバージョン・METHOD / URLがあると助かります。秘匿情報は伏せてください。
+不具合報告時は、本体機種・OS・プラグインバージョン・METHOD / URLと共にIssueまでご報告ください。
 
 ---
 
